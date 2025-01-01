@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.PageTitle}}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 90%;
+            max-width: 600px;
+        }
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+        }
+        input[type="text"] {
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            height: 40px; /* Ensure buttons are the same width */
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .delete-button {
+            background-color: #dc3545;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        .mark-button {
+            background-color: #28a745;
+        }
+        .mark-button:hover {
+            background-color: #218838;
+        }
+        .add-button {
+            background-color: #007BFF;
+        }
+        .add-button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>{{.PageTitle}}</h1>
+    <ul>
+        {{range .Todos}}
+        <li>
+            <span><b>{{.Title}}</b></span>
+            <div>
+                {{if .Done}}
+                <form action="/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="title" value="{{.Title}}">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+                {{else}}
+                <form action="/mark" method="post" style="display:inline;">
+                    <input type="hidden" name="title" value="{{.Title}}">
+                    <button type="submit" class="mark-button">Mark as Done</button>
+                </form>
+                {{end}}
+            </div>
+        </li>
+        {{end}}
+    </ul>
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="New task">
+        <button type="submit" class="add-button">Add</button>
+    </form>
+</body>
+</html>
