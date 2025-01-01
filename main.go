@@ -58,7 +58,7 @@ func deleteTaskHandler(w http.ResponseWriter, r *http.Request) {
 }
 func main() {
 	data = TodoPageData{
-		PageTitle: "My TODO list",
+		PageTitle: "Day TODO list",
 		Todos: []Todo{
 			{Title: "Task 1", Done: false},
 			{Title: "Task 2", Done: true},
